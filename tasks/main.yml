@@ -1,42 +1,48 @@
---- 
-  - name: Update apt-cache
-    apt: update_cache=yes 
+---
+  - name: Update apt-cache.
+    apt:
+      update_cache: yes
+      cache_valid_time: 7200
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-  - name: Install build tools
-    apt: 
+  - name: Install build tools.
+    apt:
         name: ['gcc', 'g++', 'make', 'cmake', 'build-essential', 'git', 'autoconf', 'curl', 'libtool', 'libssl-dev', 'libcurl4-openssl-dev', 
           'libz-dev', 'systemd-coredump', 'liblz4-tool']
         state: latest
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-  - name: Install build tools
-    apt: 
+  - name: Install build tools.
+    apt:
         name: ['gcc', 'g++', 'make', 'cmake', 'build-essential', 'git', 'cmake', 'autoconf', 'curl', 'libtool', 'libssl-dev', 'libcurl4-openssl-dev', 'libz-dev']
         state: latest
     when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
-  - name: Install libtool-bin
-    apt: 
-      name: libtool-bin 
+  - name: Install libtool-bin.
+    apt:
+      name: libtool-bin
       state: latest
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-    ignore_errors: yes          
+    ignore_errors: yes
 
-  - name: make source directory writeable
-    file: path=/usr/local/src state=directory mode=0777
+  - name: Make source directory writeable.
+    file:
+      path: /usr/local/src
+      state: directory
+      mode: 0777
 
-  - name: check out drachtio-server 
-    git: repo=https://github.com/davehorton/drachtio-server.git
-          dest=/usr/local/src/drachtio-server
-          version={{drachtioBranch}}
-          depth=50
-          accept_hostkey=yes
-          force=yes
+  - name: Check out drachtio-server.
+    git:
+      repo: https://github.com/davehorton/drachtio-server.git
+      dest: /usr/local/src/drachtio-server
+      version: "{{drachtioBranch}}"
+      depth: 50
+      accept_hostkey: yes
+      force: yes
     become: no
     register: checkout
 
-  - name: build drachtio-server
+  - name: Build drachtio-server.
     shell: ./autogen.sh && mkdir -p build && cd $_ && ../configure CPPFLAGS='-DNDEBUG' && make && make install
     become: yes
     args:
@@ -46,8 +52,10 @@
     notify: restart drachtio
     when: checkout.changed
 
-  - name: Create drachtio log directories
-    file: path="{{ item }}" state=directory
+  - name: Create drachtio log directories.
+    file:
+      path: "{{ item }}"
+      state: directory
     with_items:
       - "{{ drachtioLogFileDirectory }}"
       - "{{ drachtioLogArchiveDirectory }}"
@@ -78,7 +86,7 @@
     when: ansible_service_mgr == 'systemd' and checkout.changed
 
   - name: remove source code
-    file: 
+    file:
       path: /usr/local/src/drachtio-server
       state: absent
     when: remove_source|bool
