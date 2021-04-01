@@ -1,14 +1,24 @@
 ---
+drachtioBranch: v0.8.8
+# drachtioIpAddress: 127.0.0.1
 drachtioAdminPort: 9022
 drachtioSecret: cymru
 drachtioSipInterface: eth0
 drachtioAdminInterface: eth0
+drachtioTlsKey: /etc/letsencrypt/live/mydomain.com/privkey.pem
+drachtioTlsCert: /etc/letsencrypt/live/mydomain.com/cert.pem
+drachtioTlsChain: /etc/letsencrypt/live/mydomain.com/fullchain.pem
+drachtioCdrs: true
 drachtioLogFilePattern: drachtio.log
+drachtioLogFileDirectory: /var/log/drachtio
 drachtioLogArchiveDirectory: /var/log/drachtio/archive
 drachtioLogFileSize: 30
 drachtioLogFileMaxSize: 1000
-drachtioLogFileDirectory: /var/log/drachtio
-drachtioHttpHandler: 127.0.0.1:3000
-drachtioBranch: v0.8.8
+drachtioLogMaxFiles: 10
+drachtioHttpMethod: GET
+drachtioHttpHandler: http://127.0.0.1:3000
+drachtioHomerHost: 9060
+drachtioHomerPort: 127.0.0.1
+drachtioHomerId: 101
 cloud_provider: none
 remove_source: false

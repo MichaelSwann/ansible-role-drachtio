@@ -3,18 +3,25 @@
     <!-- udp port to listen on for client connections and shared secret used to authenticate clients -->
     <admin port="{{drachtioAdminPort}}" secret="{{drachtioSecret}}">0.0.0.0</admin>
 
-<!--
+
     <request-handlers>
-       <request-handler sip-method="*" http-method="GET">{{ drachtioHttpHandler }}</request-handler>
+       <request-handler sip-method="*" http-method="{{ drachtioHttpMethod }}">{{ drachtioHttpHandler }}</request-handler>
     </request-handlers>
--->
+
 
     <!-- sip configuration -->
     <sip>
         <contacts>
-            <contact>sip:{{ ansible_default_ipv4.address }};transport=udp,tcp</contact>
+            <contact>sip:*:6060;transport=udp,tcp</contact>
+            <contact>sips:*:6061;transport=tls</contact>
+            <contact>sips:{{ drachtioIpAddress | default(ansible_host) }}:4433;transport=wss</contact>
         </contacts>
 
+        <tls>
+            <key-file>{{ drachtioTlsKey }}</key-file>
+            <cert-file>{{ drachtioTlsCert }}</cert-file>
+            <chain-file>{{ drachtioTlsChain }}</chain-file>
+        </tls>
 
         <spammers action="reject" tcp-action="discard">
             <header name="User-Agent">
@@ -29,18 +36,13 @@
 
         <udp-mtu>4096</udp-mtu>
 
-        <!-- if you want to terminate SIP over TLS connections (example shows letsencrypt.org typical file locations, but use any CA)
-        <tls>
-                <key-file>/etc/letsencrypt/live/yourdomain/privkey.pem</key-file>
-                <cert-file>/etc/letsencrypt/live/yourdomain/cert.pem</cert-file>
-                <chain-file>/etc/letsencrypt/live/yourdomain/chain.pem</chain-file>
-                <dh-param>/var/local/dh4096.pem</dh-param>
-        </tls>
-        -->
+        <!-- Homer for logging -->
+        <capture-server port="9060" hep-version="3" id="101">10.155.250.80</capture-server>
+
 
     </sip>
 
-    <cdrs>true</cdrs>
+    <cdrs>{{ drachtioCdrs }}</cdrs>
 
 <!--
     <monitoring>
@@ -53,10 +55,10 @@
 
         <file>
             <name>{{drachtioLogFileDirectory}}/{{drachtioLogFilePattern}}</name>
-            <archive>{{drachtioLogArchiveDirectory}}</archive>
-            <size>{{drachtioLogFileSize}}</size>
-            <maxSize>{{drachtioLogFileMaxSize}}</maxSize>
-            <maxFiles>30</maxFiles>
+            <archive>{{ drachtioLogArchiveDirectory }}</archive>
+            <size>{{ drachtioLogFileSize }}</size>
+            <maxSize>{{ drachtioLogFileMaxSize }}</maxSize>
+            <maxFiles>{{ drachtioLogMaxFiles }}</maxFiles>
             <auto-flush>true</auto-flush>
         </file>
 
