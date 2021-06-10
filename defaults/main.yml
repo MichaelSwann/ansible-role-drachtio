@@ -1,5 +1,5 @@
 ---
-drachtioBranch: v0.8.8
+drachtioBranch: v0.8.10-rc1
 # drachtioIpAddress: 127.0.0.1
 drachtioAdminPort: 9022
 drachtioSecret: cymru
