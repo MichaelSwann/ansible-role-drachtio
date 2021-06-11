@@ -8,14 +8,14 @@ drachtioAdminInterface: eth0
 drachtioTlsKey: /etc/letsencrypt/live/mydomain.com/privkey.pem
 drachtioTlsCert: /etc/letsencrypt/live/mydomain.com/cert.pem
 drachtioTlsChain: /etc/letsencrypt/live/mydomain.com/fullchain.pem
-drachtioCdrs: true
+drachtioCdrs: false
 drachtioLogFilePattern: drachtio.log
 drachtioLogFileDirectory: /var/log/drachtio
 drachtioLogArchiveDirectory: /var/log/drachtio/archive
 drachtioLogFileSize: 30
 drachtioLogFileMaxSize: 1000
 drachtioLogMaxFiles: 10
-drachtioHttpMethod: GET
+drachtioHttpMethod: POST
 drachtioHttpHandler: http://127.0.0.1:3000
 drachtioHomerHost: 9060
 drachtioHomerPort: 127.0.0.1
