@@ -29,7 +29,7 @@ The network device on which to listen for client (app) connections.
 ```
 drachtioLogFilePattern: drachtio.log
 ```
-The name, or pattern, of the log file to write.  
+The name, or pattern, of the log file to write.
 
 ```
 drachtioLogFileDirectory: /var/log/drachtio

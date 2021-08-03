@@ -1,0 +1,15 @@
+---
+  - name: Check out voipmonitor from github.
+    ansible.builtin.git:
+      repo: https://github.com/voipmonitor/sniffer.git
+      dest: /usr/local/src/voipmonitor-git
+      version: master
+      depth: 50
+      accept_hostkey: yes
+      force: yes
+    become: no
+
+  - name: Install voipmonitor ssl key logger.
+    ansible.builtin.shell: make
+    args:
+      chdir: /usr/local/src/voipmonitor-git/tools/ssl_keylogger/
