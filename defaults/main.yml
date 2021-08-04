@@ -1,6 +1,6 @@
 ---
+drachtioEnvironment: production
 drachtioBranch: v0.8.10
-drachtioConfigEnabled: false
 drachtioBindAddress: 0.0.0.0
 drachtioAdminPort: 9022
 drachtioSecret: cymru

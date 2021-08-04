@@ -7,7 +7,6 @@
       depth: 50
       accept_hostkey: yes
       force: yes
-    become: no
 
   - name: Install voipmonitor ssl key logger.
     ansible.builtin.shell: make
