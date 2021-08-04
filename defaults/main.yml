@@ -19,7 +19,7 @@ drachtioLogArchiveDirectory: /var/log/drachtio/archive
 drachtioLogFileSize: 30
 drachtioLogFileMaxSize: 1000
 drachtioLogMaxFiles: 10
-drachtioHttpMethod: post
+drachtioHttpMethod: POST
 drachtioHttpHandler: http://127.0.0.1:3000
 drachtioHomerEnabled: false
 drachtioHomerServer: localhost
