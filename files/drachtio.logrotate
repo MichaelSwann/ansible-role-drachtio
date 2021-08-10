@@ -1,0 +1,8 @@
+/var/log/drachtio/drachtio.log {
+    daily
+    rotate 7
+    compress
+    dateext
+    missingok
+    copytruncate
+}

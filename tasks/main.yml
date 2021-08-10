@@ -94,6 +94,14 @@
       group: root
     notify: restart drachtio
 
+  - name: Setup the logrotate strategy.
+    ansible.builtin.copy:
+      src: drachtio.logrotate
+      dest: /etc/logrotate.d/drachtio
+      mode: 0644
+      owner: root
+      group: root
+
   - name: Create systemd unit file
     ansible.builtin.template:
       src: drachtio-systemd-script.j2
