@@ -85,14 +85,11 @@
 
         <file>
             <name>{{drachtioLogFileDirectory}}/{{drachtioLogFilePattern}}</name>
-            <!-- Drachtio log archiving sucks. Rather use logrotate to perform the
-                 the rotation of logs
             <archive>{{ drachtioLogArchiveDirectory }}</archive>
             <size>{{ drachtioLogFileSize }}</size>
             <maxSize>{{ drachtioLogFileMaxSize }}</maxSize>
             <maxFiles>{{ drachtioLogMaxFiles }}</maxFiles>
             <auto-flush>true</auto-flush>
-            -->
         </file>
 
         <!-- sofia internal log level, from 0 (minimal) to 9 (verbose) -->
